@@ -11,7 +11,33 @@ namespace CfxMeltPivot
     {
     class ProgramOptions
         {
-        public List<String> ExtraOptions = new List<string>();
+        public List<string> AutoFileNames = new List<string>
+            {
+            "E19103101 -  Melt Curve RFU Results_SYBR.csv", 
+            "E19110401 -  Melt Curve RFU Results_SYBR.csv",
+            "E19110701 -  Melt Curve RFU Results_SYBR.csv",
+            "E19111501 -  Melt Curve RFU Results_SYBR.csv",
+            "E19111801 -  Melt Curve RFU Results_SYBR.csv",
+            "E19111901 -  Melt Curve RFU Results_SYBR.csv",
+            "E19120901 -  Melt Curve RFU Results_SYBR.csv",
+            "E20012701a -  Melt Curve RFU Results_SYBR.csv",
+            "E20012701b -  Melt Curve RFU Results_SYBR.csv",
+            "E20020401-A-CfxTwo -  Melt Curve RFU Results_FAM.csv",
+            "E20020401-B-CfxOne -  Melt Curve RFU Results_FAM.csv",
+            };
+
+        public List<string> AutoExperimentNames = new List<string>
+            {
+            "E19103101", "E19110401", "E19110701", "E19111501", "E19111801", "E19111901", "E19120901", "E20012701", "E20012701", "E20020401", "E20020401",
+            };
+
+        public List<int> AutoFirstRow = new List<int>
+            {
+            1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 9,
+            };
+
+        public bool         Auto = true;
+        public List<string> ExtraOptions = new List<string>();
         public string       InputFileName = null;
         public bool         ShowUsage = false;
         public bool         Verbose = false;
@@ -32,9 +58,10 @@ namespace CfxMeltPivot
             {
             Options = new OptionSet
                 {
-                    { "e=|experiment=", $"the name of the experiment in question", (string s) => Experiment = s },
-                    { "f=|file=",       $"the name of the exported CFX file to parse", (string f) => InputFileName = f },
-                    { "r=|row=",        $"first row", (int row) => FirstRow = row },
+                    { "a|auto",         $"automatically set options", (string a) => Auto = a != null },
+                    { "e=|experiment=", $"the name of the experiment in question", (string s) => Experiment = s, Auto = false },
+                    { "f=|file=",       $"the name of the exported CFX file to parse", (string f) => InputFileName = f, Auto = false},
+                    { "r=|row=",        $"first row", (int row) => { FirstRow = row; Auto = false; } },
                     { "o=|output=",     $"root name of the output file (default=\"{OutputFileRoot}\"). Always of type {OutputExtension}", s => OutputFileRoot = s },
                     { "h|help|?",       $"show this message and exit", (string h) => ShowUsage = h != null },
                 };
