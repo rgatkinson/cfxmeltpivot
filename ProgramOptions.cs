@@ -15,9 +15,11 @@ namespace CfxMeltPivot
         public string       InputFileName = null;
         public bool         ShowUsage = false;
         public bool         Verbose = false;
+        public string       Experiment = "E20030101";
+        public int          FirstRow = 1;
         
         public string OutputFileRoot = "Fluorescence";
-        public string OutputExtension = ".csv";
+        public string OutputExtension = ".txt";
         public string OutputFileName => OutputFileRoot + OutputExtension;
 
         public IndentedTextWriter StdOut;
@@ -30,9 +32,11 @@ namespace CfxMeltPivot
             {
             Options = new OptionSet
                 {
-                    { "f=|file=",  $"the name of the exported CFX file to parse", (string f) => InputFileName = f },
-                    { "o=|output=", $"root name of the output file (default=\"{OutputFileRoot}\"). Always of type {OutputExtension}", s => OutputFileRoot = s },
-                    { "h|help|?",  $"show this message and exit", (string h) => ShowUsage = h != null },
+                    { "e=|experiment=", $"the name of the experiment in question", (string s) => Experiment = s },
+                    { "f=|file=",       $"the name of the exported CFX file to parse", (string f) => InputFileName = f },
+                    { "r=|row=",        $"first row", (int row) => FirstRow = row },
+                    { "o=|output=",     $"root name of the output file (default=\"{OutputFileRoot}\"). Always of type {OutputExtension}", s => OutputFileRoot = s },
+                    { "h|help|?",       $"show this message and exit", (string h) => ShowUsage = h != null },
                 };
 
             // In case we don't validate
@@ -88,6 +92,16 @@ namespace CfxMeltPivot
 
         private void Usage(OptionException e)
             {
+            IndentedTextWriter writer = StdErr;
+
+            if (e != null)
+                {
+                writer.WriteLine(e.Message);
+                }
+
+            writer.WriteLine("Options:");
+            Options.WriteOptionDescriptions(writer);
+            writer.WriteLine();
             }
         }
     }
