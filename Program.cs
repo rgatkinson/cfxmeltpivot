@@ -67,15 +67,19 @@ namespace CfxMeltPivot
 
                 // Emit the columns, one per line, to the output
                 NextDouble(strings, out double temp);
-                for (int index=1;;index++)
+                for (int iThisPlate=1;;iThisPlate++)
                     {
                     bool moreAfterThis = NextDouble(strings, out double value);
 
-                    int indexZ = index-1;
-                    int row = indexZ / 12 + firstRow;
-                    int column = indexZ % 12 + 1;
+                    int colsPerPlate = 12;
+                    int rowsPerPlate = 8;
+                    int iThisPlateZ = iThisPlate-1;
+                    int row = iThisPlateZ / colsPerPlate + firstRow;
+                    int column = iThisPlateZ % colsPerPlate + 1;
+                    int indexZ = iThisPlateZ + (firstRow-1) * colsPerPlate;
+                    int index = indexZ + 1;
 
-                    string output = $"{experimentName}\t{temp}\t{value}\t{WellName(row,column)}\t{index}\t{row}\t{column}";
+                    string output = $"{experimentName}\t{temp:F3}\t{value}\t{WellName(row,column)}\t{index}\t{row}\t{column}";
                     writer.WriteLine(output);
 
                     if (!moreAfterThis)
