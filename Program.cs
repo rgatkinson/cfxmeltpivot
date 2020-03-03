@@ -15,9 +15,16 @@ namespace CfxMeltPivot
         private void OpenOutputWhile(FileMode fileMode, Action action)
             {
             try { 
+                bool writeHeader = fileMode!=FileMode.Append || !File.Exists(ProgramOptions.OutputFileName);
+
                 // Open the output file, creating if necessary, but appending if not
                 fsOut = new FileStream(ProgramOptions.OutputFileName, fileMode, FileAccess.Write, FileShare.Read);
                 writer = new StreamWriter(fsOut);
+
+                if (writeHeader)
+                    {
+                    writer.WriteLine("Experiment\tTemperature\tValue\tName\tIndex\tRow\tColumn");
+                    }
 
                 action.Invoke();
                 }
@@ -62,8 +69,7 @@ namespace CfxMeltPivot
                 NextDouble(strings, out double temp);
                 for (int index=1;;index++)
                     {
-                    if (!NextDouble(strings, out double value))
-                        break;
+                    bool moreAfterThis = NextDouble(strings, out double value);
 
                     int indexZ = index-1;
                     int row = indexZ / 12 + firstRow;
@@ -71,6 +77,9 @@ namespace CfxMeltPivot
 
                     string output = $"{experimentName}\t{temp}\t{value}\t{WellName(row,column)}\t{index}\t{row}\t{column}";
                     writer.WriteLine(output);
+
+                    if (!moreAfterThis)
+                        break;
                     }
                 }
             }

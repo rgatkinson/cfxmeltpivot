@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Mono.Options;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mono.Options;
 
 namespace CfxMeltPivot
     {
@@ -44,7 +41,7 @@ namespace CfxMeltPivot
         public string       Experiment = "E20030101";
         public int          FirstRow = 1;
         
-        public string OutputFileRoot = "Fluorescence";
+        public string OutputFileRoot = "FluorescenceByIndex";
         public string OutputExtension = ".txt";
         public string OutputFileName => OutputFileRoot + OutputExtension;
 
