@@ -17,20 +17,28 @@ namespace CfxMeltPivot
             "E19111801 -  Melt Curve RFU Results_SYBR.csv",
             "E19111901 -  Melt Curve RFU Results_SYBR.csv",
             "E19120901 -  Melt Curve RFU Results_SYBR.csv",
-            "E20012701a -  Melt Curve RFU Results_SYBR.csv",
-            "E20012701b -  Melt Curve RFU Results_SYBR.csv",
-            "E20020401-A-CfxTwo -  Melt Curve RFU Results_FAM.csv",
-            "E20020401-B-CfxOne -  Melt Curve RFU Results_FAM.csv",
+            "E20012701a-reread -  Melt Curve RFU Results_SYBR.csv",
+            "E20012701b-reread -  Melt Curve RFU Results_SYBR.csv",
+            "E20020401a-reread -  Melt Curve RFU Results_SYBR.csv",
+            "E20020401b-reread -  Melt Curve RFU Results_SYBR.csv",
+            "E20030501a -  Melt Curve RFU Results_SYBR.csv",
+            "E20030501b -  Melt Curve RFU Results_SYBR.csv",
             };
 
         public List<string> AutoExperimentNames = new List<string>
             {
-            "E19103101", "E19110401", "E19110701", "E19111501", "E19111801", "E19111901", "E19120901", "E20012701", "E20012701", "E20020401", "E20020401",
+            "E19103101", "E19110401", "E19110701", "E19111501", "E19111801", "E19111901", "E19120901", 
+            "E20012701", "E20012701", 
+            "E20020401", "E20020401",
+            "E20030501", "E20030501",
             };
 
         public List<int> AutoFirstRow = new List<int>
             {
-            1, 1, 1, 1, 1, 1, 1, 1, 9, 1, 9,
+            1, 1, 1, 1, 1, 1, 1, 
+            1, 9, 
+            1, 9,
+            1, 9,
             };
 
         public bool         Auto = true;
