@@ -719,14 +719,14 @@ Cell[BoxData[{
   RowBox[{"Needs", "[", "\"\<JLink`\>\"", "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Needs", "[", "\"\<DatabaseLink`\>\"", "]"}], ";"}], "\n", 
+   RowBox[{"Needs", "[", "\"\<DatabaseLink`\>\"", "]"}], ";"}], 
+  "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
     RowBox[{
     "AddToClassPath", "[", 
      "\"\<C:\\\\Program Files\\\\Easysoft Limited\\\\Easysoft JDBC-Access \
-Gateway\\\\Libs\\\\esmdb.jar\>\"", "]"}], ";"}], 
-   "*)"}]}], "\[IndentingNewLine]", 
+Gateway\\\\Libs\\\\esmdb.jar\>\"", "]"}], ";"}], "*)"}]}], "\n", 
  RowBox[{
   RowBox[{"(*", 
    RowBox[{"JavaClassPath", "[", "]"}], 
@@ -1307,7 +1307,8 @@ Cell["Explaining", \
 Cell[BoxData[{
  RowBox[{"Clear", "[", "explain", "]"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"explain", "[", "fitIn_", "]"}], " ", ":=", " ", 
+  RowBox[{"explain", "[", 
+   RowBox[{"fitIn_", ",", " ", "ssOnly_"}], "]"}], " ", ":=", " ", 
   RowBox[{"Module", "[", 
    RowBox[{
     RowBox[{"{", 
@@ -1316,8 +1317,10 @@ Cell[BoxData[{
       " ", "title", ",", " ", "columns", ",", " ", "dataset", ",", "  ", 
       "data", ",", " ", "explained", ",", " ", "measured", ",", " ", "xy", 
       ",", " ", "xyzMeasured", ",", " ", "unexplained", ",", " ", 
-      "xyzUnexplained", ",", " ", "view"}], "}"}], ",", "\[IndentingNewLine]", 
+      "xyzUnexplained", ",", " ", "view", ",", " ", "imageSize"}], "}"}], ",",
+     "\[IndentingNewLine]", 
     RowBox[{
+     RowBox[{"imageSize", " ", "=", " ", "800"}], ";", "\[IndentingNewLine]", 
      RowBox[{"fit", " ", "=", " ", "fitIn"}], ";", "\[IndentingNewLine]", 
      RowBox[{"lmSs", " ", "=", " ", 
       RowBox[{"fit", "[", "\"\<lmSs\>\"", "]"}]}], ";", "\[IndentingNewLine]", 
@@ -1349,16 +1352,21 @@ Cell[BoxData[{
       RowBox[{"unDataset", "[", 
        RowBox[{
         RowBox[{"Function", "[", 
-         RowBox[{"row", ",", " ", 
+         RowBox[{"row", ",", " ", "\[IndentingNewLine]", 
           RowBox[{
            RowBox[{"lmSs", "[", 
             RowBox[{
              RowBox[{"row", "[", "\"\<nmolSsNtA\>\"", "]"}], ",", " ", 
              RowBox[{"row", "[", "\"\<nmolSsNtB\>\"", "]"}]}], "]"}], " ", 
            "+", " ", 
-           RowBox[{"lmDs", "[", 
-            RowBox[{"row", "[", "\"\<nmolDsNt\>\"", "]"}], "]"}]}]}], "]"}], 
-        " ", "/@", " ", "dataset"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{"ssOnly", ",", " ", "0", ",", " ", "1"}], "]"}], " ", 
+            "*", " ", 
+            RowBox[{"lmDs", "[", 
+             RowBox[{"row", "[", "\"\<nmolDsNt\>\"", "]"}], "]"}]}]}]}], 
+         "\[IndentingNewLine]", "]"}], " ", "/@", " ", "dataset"}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
      RowBox[{"measured", "=", " ", 
       RowBox[{"unDataset", "[", 
        RowBox[{
@@ -1406,16 +1414,22 @@ Cell[BoxData[{
           RowBox[{"PlotLabel", "\[Rule]", 
            RowBox[{"formatString", "[", 
             RowBox[{
-            "\"\<``: Measured (Blue) & Unexplained Residuals(Red)\>\"", ",", 
-             " ", "title"}], "]"}]}], ",", " ", 
+            "\"\<``: Measured (Blue) & Unexplained Residuals(Red)``\>\"", ",",
+              " ", "title", ",", " ", 
+             RowBox[{"If", "[", 
+              RowBox[{
+              "ssOnly", ",", " ", "\"\<: ss fit only\>\"", ",", " ", 
+               "\"\<\>\""}], "]"}]}], "]"}]}], ",", " ", 
+          "\[IndentingNewLine]", 
           RowBox[{"PlotStyle", "\[Rule]", 
            RowBox[{"{", 
             RowBox[{"Blue", ",", " ", "Red"}], "}"}]}], ",", " ", 
-          RowBox[{"ImageSize", "\[Rule]", "1000"}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", "imageSize"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"Filling", "->", "Axis"}], ",", 
           RowBox[{"FillingStyle", "\[Rule]", "Automatic"}], ",", 
           "\[IndentingNewLine]", 
+          RowBox[{"PlotRange", "\[Rule]", "All"}], ",", "\[IndentingNewLine]", 
           RowBox[{"AxesLabel", "\[Rule]", 
            RowBox[{"{", 
             RowBox[{
@@ -1477,11 +1491,15 @@ Cell[BoxData[{
           RowBox[{"PlotLabel", "\[Rule]", 
            RowBox[{"formatString", "[", 
             RowBox[{
-            "\"\<``: Unexplained Residuals(Red)\>\"", ",", " ", "title"}], 
-            "]"}]}], ",", " ", 
+            "\"\<``: Unexplained Residuals(Red)``\>\"", ",", " ", "title", 
+             ",", " ", 
+             RowBox[{"If", "[", 
+              RowBox[{
+              "ssOnly", ",", " ", "\"\<: ss fit only\>\"", ",", " ", 
+               "\"\<\>\""}], "]"}]}], "]"}]}], ",", " ", 
           RowBox[{"PlotStyle", "\[Rule]", 
            RowBox[{"{", "Red", "}"}]}], ",", " ", 
-          RowBox[{"ImageSize", "\[Rule]", "1000"}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", "imageSize"}], ",", 
           "\[IndentingNewLine]", 
           RowBox[{"Filling", "->", "Axis"}], ",", 
           RowBox[{"FillingStyle", "\[Rule]", "Automatic"}], ",", 
@@ -1546,13 +1564,23 @@ Cell[BoxData[{
    "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"fitDs1", " ", "=", " ", 
-   RowBox[{"explain", "[", "fitDs1", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{"explain", "[", 
+    RowBox[{"fitDs1", ",", " ", "False"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"fitDs2", " ", "=", " ", 
-   RowBox[{"explain", "[", "fitDs2", "]"}]}], ";"}], "\[IndentingNewLine]", 
+  RowBox[{"fitDs2a", " ", "=", " ", 
+   RowBox[{"explain", "[", 
+    RowBox[{"fitDs2", ",", " ", "True"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"fitDs2b", " ", "=", " ", 
+   RowBox[{"explain", "[", 
+    RowBox[{"fitDs2", ",", " ", "False"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"fitDs3", " ", "=", " ", 
-   RowBox[{"explain", "[", "fitDs3", "]"}]}], 
+   RowBox[{"explain", "[", 
+    RowBox[{"fitDs3", ",", " ", "False"}], "]"}]}], 
   ";"}]}], "Input",ExpressionUUID->"a16ab2a2-8824-4196-b9bf-550aeb26682a"]
 }, Open  ]]
 }, Open  ]]
