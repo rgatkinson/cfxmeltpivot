@@ -719,14 +719,14 @@ Cell[BoxData[{
   RowBox[{"Needs", "[", "\"\<JLink`\>\"", "]"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{
-   RowBox[{"Needs", "[", "\"\<DatabaseLink`\>\"", "]"}], ";"}], 
-  "\[IndentingNewLine]", 
+   RowBox[{"Needs", "[", "\"\<DatabaseLink`\>\"", "]"}], ";"}], "\n", 
   RowBox[{"(*", 
    RowBox[{
     RowBox[{
     "AddToClassPath", "[", 
      "\"\<C:\\\\Program Files\\\\Easysoft Limited\\\\Easysoft JDBC-Access \
-Gateway\\\\Libs\\\\esmdb.jar\>\"", "]"}], ";"}], "*)"}]}], "\n", 
+Gateway\\\\Libs\\\\esmdb.jar\>\"", "]"}], ";"}], 
+   "*)"}]}], "\[IndentingNewLine]", 
  RowBox[{
   RowBox[{"(*", 
    RowBox[{"JavaClassPath", "[", "]"}], 
@@ -1013,15 +1013,15 @@ StrandBConcentration\>\""}], ";", "\[IndentingNewLine]",
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"fitSs1", " ", "=", " ", 
   RowBox[{"fitSsExperimentTemp", "[", 
-   RowBox[{"\"\<E20012701\>\"", ",", " ", "22"}], 
+   RowBox[{"\"\<E20012701\>\"", ",", " ", "35"}], 
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"fitSs2", " ", "=", " ", 
   RowBox[{"fitSsExperimentTemp", "[", 
-   RowBox[{"\"\<E20020401\>\"", ",", " ", "22"}], 
+   RowBox[{"\"\<E20020401\>\"", ",", " ", "35"}], 
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"fitSs3", " ", "=", " ", 
   RowBox[{"fitSsExperimentTemp", "[", 
-   RowBox[{"\"\<E20030501\>\"", ",", " ", "22"}], 
+   RowBox[{"\"\<E20030501\>\"", ",", " ", "35"}], 
    "]"}]}]}], "Input",ExpressionUUID->"78847baf-90cb-4d65-9ff3-7336485f901e"],
 
 Cell["\<\
@@ -1353,20 +1353,24 @@ Cell[BoxData[{
        RowBox[{
         RowBox[{"Function", "[", 
          RowBox[{"row", ",", " ", "\[IndentingNewLine]", 
-          RowBox[{
-           RowBox[{"lmSs", "[", 
+          RowBox[{"If", "[", 
+           RowBox[{"ssOnly", ",", "\[IndentingNewLine]", 
+            RowBox[{"lmSs", "[", 
+             RowBox[{
+              RowBox[{"row", "[", "\"\<nmolNtA\>\"", "]"}], ",", " ", 
+              RowBox[{"row", "[", "\"\<nmolNtB\>\"", "]"}]}], "]"}], ",", 
+            "\[IndentingNewLine]", 
             RowBox[{
-             RowBox[{"row", "[", "\"\<nmolSsNtA\>\"", "]"}], ",", " ", 
-             RowBox[{"row", "[", "\"\<nmolSsNtB\>\"", "]"}]}], "]"}], " ", 
-           "+", " ", 
-           RowBox[{
-            RowBox[{"If", "[", 
-             RowBox[{"ssOnly", ",", " ", "0", ",", " ", "1"}], "]"}], " ", 
-            "*", " ", 
-            RowBox[{"lmDs", "[", 
-             RowBox[{"row", "[", "\"\<nmolDsNt\>\"", "]"}], "]"}]}]}]}], 
-         "\[IndentingNewLine]", "]"}], " ", "/@", " ", "dataset"}], "]"}]}], 
-     ";", "\[IndentingNewLine]", 
+             RowBox[{"lmSs", "[", 
+              RowBox[{
+               RowBox[{"row", "[", "\"\<nmolSsNtA\>\"", "]"}], ",", " ", 
+               RowBox[{"row", "[", "\"\<nmolSsNtB\>\"", "]"}]}], "]"}], " ", 
+             "+", " ", 
+             RowBox[{"1", " ", "*", " ", 
+              RowBox[{"lmDs", "[", 
+               RowBox[{"row", "[", "\"\<nmolDsNt\>\"", "]"}], "]"}]}]}]}], 
+           "]"}]}], "\[IndentingNewLine]", "]"}], " ", "/@", " ", "dataset"}],
+        "]"}]}], ";", "\[IndentingNewLine]", 
      RowBox[{"measured", "=", " ", 
       RowBox[{"unDataset", "[", 
        RowBox[{
@@ -1614,7 +1618,7 @@ for-ms-access\
 }, Open  ]]
 },
 WindowSize->{1294, 1541},
-WindowMargins->{{Automatic, 881}, {Automatic, 20}},
+WindowMargins->{{Automatic, 158}, {Automatic, 8}},
 PrintingCopies->1,
 PrintingPageRange->{32000, 32000},
 PrintingOptions->{"Magnification"->1.,
